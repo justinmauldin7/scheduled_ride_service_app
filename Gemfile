@@ -15,6 +15,9 @@ gem "puma", "~> 5.0"
 # Used to keep our app api keys & secrets out of Git.
 gem "figaro"
 
+# Used to make HTTP requests for interacting with external API's.
+gem 'faraday'
+
 # Build JSON APIs with ease [https://github.com/rails/jbuilder]
 # gem "jbuilder"
 
