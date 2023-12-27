@@ -54,6 +54,9 @@ group :development, :test do
 
   # Used to help test our models.
   gem "shoulda-matchers"
+
+  # Used to record and minimize external API rquests in our RSpec tests.
+  gem "vcr"
 end
 
 group :development do
