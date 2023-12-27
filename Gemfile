@@ -16,7 +16,7 @@ gem "puma", "~> 5.0"
 gem "figaro"
 
 # Used to make HTTP requests for interacting with external API's.
-gem 'faraday'
+gem "faraday"
 
 # Build JSON APIs with ease [https://github.com/rails/jbuilder]
 # gem "jbuilder"
@@ -47,13 +47,13 @@ group :development, :test do
   gem "debug", platforms: %i[ mri mingw x64_mingw ]
 
   # Preferred debugging tool.
-  gem 'pry'
+  gem "pry"
 
   # Used as the testing suite.
-  gem 'rspec-rails'
+  gem "rspec-rails"
 
   # Used to help test our models.
-  gem 'shoulda-matchers'
+  gem "shoulda-matchers"
 end
 
 group :development do
