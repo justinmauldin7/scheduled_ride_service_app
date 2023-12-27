@@ -57,6 +57,9 @@ group :development, :test do
 
   # Used to record and minimize external API rquests in our RSpec tests.
   gem "vcr"
+
+  # Used in conjunction with the 'vcr' gem to record real API requests in our RSP tests.
+  gem "webmock"
 end
 
 group :development do
