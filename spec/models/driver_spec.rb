@@ -2,7 +2,7 @@ require 'rails_helper'
 
 describe Driver do
   describe 'relationships' do
-    it { should have_many(:drives) }
+    it { should have_many(:rides) }
   end
 
   describe 'validations' do
