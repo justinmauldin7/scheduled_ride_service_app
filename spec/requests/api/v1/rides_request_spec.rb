@@ -1,38 +1,40 @@
 require 'rails_helper'
 
 describe 'Rides API' do
-  it "can return a specific Driver's associated rides" do
-    driver = Driver.create(address: "12051 E Arizona Ave. Aurora, CO 80012")
+  before :each do
+    @driver = Driver.create(address: "12051 E Arizona Ave. Aurora, CO 80012")
 
-    Ride.create(driver: driver, 
+    @ride_1 = Ride.create(driver: @driver, 
             start_address:"12200 E Mississippi Ave, Aurora, CO 80012",
             end_address:"1550 S Potomac St, Aurora, CO 80012")
 
-    Ride.create(driver: driver, 
+    @ride_2 = Ride.create(driver: @driver, 
                 start_address:"12200 E Mississippi Ave, Aurora, CO 80012", 
                 end_address:"200 S Ironton St, Aurora, CO 80012")
 
-    Ride.create(driver: driver, 
+    @ride_3 = Ride.create(driver: @driver, 
                 start_address:"12200 E Mississippi Ave, Aurora, CO 80012", 
                 end_address:"8580 E Lowry Blvd, Denver, CO 80230")
 
-    Ride.create(driver: driver, 
+    @ride_4 = Ride.create(driver: @driver, 
                 start_address:"12051 E Arizona Ave. Aurora, CO 80012", 
                 end_address:"8580 E Lowry Blvd, Denver, CO 80230")
+  end
 
-    get "/api/v1/drivers/#{driver.id}/rides"
+  it "can return a specific Driver's associated rides" do
+    get "/api/v1/drivers/#{@driver.id}/rides"
 
     rides = JSON.parse(response.body, symbolize_names: true)
 
     expect(response).to be_successful
-    expect(rides.count).to eq(4)
+    expect(rides.count).to eq(@driver.rides.size)
 
     rides.each do |ride|
       expect(ride).to have_key(:id)
       expect(ride[:id]).to be_an(Integer)
 
       expect(ride).to have_key(:driver_id)
-      expect(ride[:driver_id]).to eq(driver.id)
+      expect(ride[:driver_id]).to eq(@driver.id)
 
       expect(ride).to have_key(:start_address)
       expect(ride[:start_address]).to be_a(String)
