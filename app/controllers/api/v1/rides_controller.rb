@@ -4,7 +4,9 @@ class Api::V1::RidesController < ApplicationController
   def index
     rides = @driver.rides
 
-    render json: rides
+    # We call "paginate" here instead of calling "render" so that we can use pagination on this endpoint, 
+    # per the "api-pagination" gem's docs: https://github.com/davidcelis/api-pagination.
+    paginate json: rides
   end
 
   private 
