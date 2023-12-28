@@ -9,9 +9,10 @@ describe 'Google Directions API Service' do
             end_address:"1550 S Potomac St, Aurora, CO 80012")
           
     goodle_directions = GoogleDirectionsService.new(ride.start_address, ride.end_address)
+    api_response = google_directions.get_directions_data
 
-    expect(goodle_directions).to eq("Success")
-    expect(goodle_directions).to include(ride.start_address)
-    expect(goodle_directions).to include(ride.end_address)
+    expect(api_response).to eq("Success")
+    expect(api_response).to include(ride.start_address)
+    expect(api_response).to include(ride.end_address)
   end
 end
