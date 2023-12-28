@@ -18,6 +18,10 @@ gem "figaro"
 # Used to make HTTP requests for interacting with external API's.
 gem "faraday"
 
+# These two gems are used together to help us use pagination on our Rails API endpoints.
+gem 'will_paginate'
+gem 'api-pagination'
+
 # Build JSON APIs with ease [https://github.com/rails/jbuilder]
 # gem "jbuilder"
 
