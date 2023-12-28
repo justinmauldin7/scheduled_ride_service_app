@@ -49,4 +49,42 @@ describe 'Rides API' do
       expect(ride[:updated_at]).to be_a(String)
     end
   end
+
+  it "can return a paginated list of a specific Driver's associated rides" do
+    per_page_number = 2
+    page_number = 1
+
+    get "/api/v1/drivers/#{@driver.id}/rides?per_page=#{per_page_number}&page=#{page_number}"
+
+    rides = JSON.parse(response.body, symbolize_names: true)
+
+    expect(response).to be_successful
+    expect(rides.count).to eq(per_page_number)
+    expect(rides.count).not_to eq(4)
+
+    expect(rides.first[:id]).to eq(@ride_1.id)
+    expect(rides.last[:id]).to eq(@ride_2.id)
+    expect(rides.first[:id]).not_to eq(@ride_3.id)
+    expect(rides.last[:id]).not_to eq(@ride_4.id)
+
+    rides.each do |ride|
+      expect(ride).to have_key(:id)
+      expect(ride[:id]).to be_an(Integer)
+
+      expect(ride).to have_key(:driver_id)
+      expect(ride[:driver_id]).to eq(@driver.id)
+
+      expect(ride).to have_key(:start_address)
+      expect(ride[:start_address]).to be_a(String)
+
+      expect(ride).to have_key(:end_address)
+      expect(ride[:end_address]).to be_a(String)
+
+      expect(ride).to have_key(:created_at)
+      expect(ride[:created_at]).to be_a(String)
+
+      expect(ride).to have_key(:updated_at)
+      expect(ride[:updated_at]).to be_a(String)
+    end
+  end
 end
