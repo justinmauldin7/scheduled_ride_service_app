@@ -19,14 +19,7 @@ class TimeAndDistanceConversionService
     # that is less than 1 will be returned as 0 instead of a decimal.
     converted_float = integer_to_convert.to_f / value.to_f
 
-    format_decimal_places(converted_float)
-  end
-
-  def format_decimal_places(value)
-    # This will convert our float into a string & return only 2 decimal places. 
-    # EX: 0.0313888 turns into "0.03"
-    # It also makes sure it ends in a 0 if needed for consistant formatting.
-    # EX: 0.401 turns into "0.40"
-    '%.2f' % value
+    # Returning the value with 2 decimal places.
+    converted_float.round(2)
   end
 end
