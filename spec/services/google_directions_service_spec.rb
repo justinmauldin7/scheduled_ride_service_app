@@ -43,4 +43,18 @@ describe 'Google Directions API Service' do
       expect(ride[:duration][:value]).to be_an(Integer)
     end
   end
+
+  it 'can get cleaned distance & direction data (for ride routing)', :vcr do
+    ride_data = GoogleDirectionsService.get_cleaned_ride_routing_data(@driver.address, @ride.start_address, @ride.end_address)
+
+    ride_data.each do |ride|
+      expect(ride).to have_key(:distance)
+      expect(ride[:distance]).to be_an(Integer)
+
+      expect(ride).to have_key(:duration)
+      expect(ride[:duration]).to be_an(Integer)
+
+      expect(ride.keys).to eq([:distance, :duration])
+    end
+  end
 end

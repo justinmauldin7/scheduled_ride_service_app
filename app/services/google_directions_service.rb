@@ -11,6 +11,12 @@ class GoogleDirectionsService
     get_distance_and_duration_data(raw_data)
   end
 
+  def self.get_cleaned_ride_routing_data(driver_address, start_address, end_address)
+    raw_distance_and_duration_data = get_serialized_directions_data(driver_address, start_address, end_address)
+
+    get_cleaned_distance_and_duration_data(raw_distance_and_duration_data)
+  end
+
   private
 
   def self.conn
@@ -37,4 +43,18 @@ class GoogleDirectionsService
 
     cleaned_route_array
   end 
+
+  def self.get_cleaned_distance_and_duration_data(raw_data)
+    raw_data.map do |route_data|
+      cleaned_route_data = route_data.map do |key, value|
+        # Here is some sample data we are iterating through so its clear why we are setting the "value" of "value".
+        # EX: {:distance => {:text => "0.3 mi", :value => 531}
+        route_data[key] = value[value.keys.last]
+      end
+
+      cleaned_route_data
+    end
+
+    raw_data
+  end
 end
