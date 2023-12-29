@@ -4,11 +4,11 @@ describe 'Time And Distance Conversion Service' do
   before :each do
      @duration_to_convert = 113
      @distance_to_convert = 531
+     @conversion_service = TimeAndDistanceConversionService.new
   end
 
   it 'can convert seconds into hours', :vcr do
-    conversion_service = TimeAndDistanceConversionService.new(@duration_to_convert)
-    converted_value = conversion_service.convert_seconds_to_hours
+    converted_value = @conversion_service.convert_seconds_to_hours(@duration_to_convert)
 
     expect(converted_value).to be_an(String)
     expect(converted_value).to eq("0.03")
@@ -18,8 +18,7 @@ describe 'Time And Distance Conversion Service' do
   end
 
   it 'can convert seconds into hours', :vcr do
-    conversion_service = TimeAndDistanceConversionService.new(@distance_to_convert)
-    converted_value = conversion_service.convert_meters_to_miles
+    converted_value = @conversion_service.convert_meters_to_miles(@distance_to_convert)
 
     expect(converted_value).to be_an(String)
     expect(converted_value).to eq("0.33")
