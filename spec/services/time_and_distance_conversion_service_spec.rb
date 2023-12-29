@@ -9,7 +9,7 @@ describe 'Time And Distance Conversion Service' do
      @conversion_service = TimeAndDistanceConversionService.new
   end
 
-  it 'can convert seconds into hours', :vcr do
+  it 'can convert seconds into hours' do
     converted_value = @conversion_service.convert_seconds_to_hours(@duration_to_convert)
     
     expect(converted_value).to be_an(Float)
@@ -19,7 +19,7 @@ describe 'Time And Distance Conversion Service' do
     expect(converted_value).not_to eq("0.03")
   end
 
-  it 'can convert seconds into hours', :vcr do
+  it 'can convert seconds into hours' do
     converted_value = @conversion_service.convert_meters_to_miles(@distance_to_convert)
     
     expect(converted_value).to be_an(Float)
@@ -29,7 +29,7 @@ describe 'Time And Distance Conversion Service' do
     expect(converted_value).not_to eq("0.33")
   end
 
-  it 'can convert hours into minutes', :vcr do
+  it 'can convert hours into minutes' do
     converted_value = @conversion_service.convert_hours_to_minutes(@hours_to_convert)
 
     expect(converted_value).to be_an(Float)
