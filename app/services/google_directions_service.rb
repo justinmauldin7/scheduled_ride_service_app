@@ -1,7 +1,7 @@
 class GoogleDirectionsService
   API_KEY = ENV['GOOGLE_MAPS_API_KEY'].freeze
 
-  def self.get_directions_data(driver_address, start_address, end_address)
+  def self.get_raw_directions_data(driver_address, start_address, end_address)
     get_json("/maps/api/directions/json?origin=#{driver_address}&waypoints=#{start_address}&destination=#{end_address}")
   end
 
