@@ -13,6 +13,16 @@ class TimeAndDistanceConversionService
     format_decimal_places(hours_as_float)
   end
 
+  def convert_meters_to_miles 
+    meters_in_a_mile = 1609.344
+
+    # If we don't convert the integers into floats, any number that is retruned by the math 
+    # that is less than 1 will be returned as 0 instead of a decimal.
+    miles_as_float = @integer_to_convert.to_f / meters_in_a_mile.to_f
+
+    format_decimal_places(miles_as_float)
+  end
+
   private
 
   def format_decimal_places(value)
