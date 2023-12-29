@@ -23,4 +23,24 @@ describe 'Google Directions API Service' do
     expect(api_response_start_address).to include(@ride.start_address)
     expect(api_response_end_address).to include(@ride.end_address)
   end
+
+  it 'can get cleaned directions data', :vcr do
+    ride_data = GoogleDirectionsService.get_serialized_directions_data(@driver.address, @ride.start_address, @ride.end_address)
+
+    ride_data.each do |ride|
+      expect(ride).to have_key(:distance)
+      expect(ride[:distance]).to be_an(Hash)
+      expect(ride[:distance]).to have_key(:text)
+      expect(ride[:distance][:text]).to be_an(String)
+      expect(ride[:distance]).to have_key(:value)
+      expect(ride[:distance][:value]).to be_an(Integer)
+
+      expect(ride).to have_key(:duration)
+      expect(ride[:duration]).to be_an(Hash)
+      expect(ride[:duration]).to have_key(:text)
+      expect(ride[:duration][:text]).to be_an(String)
+      expect(ride[:duration]).to have_key(:value)
+      expect(ride[:duration][:value]).to be_an(Integer)
+    end
+  end
 end
