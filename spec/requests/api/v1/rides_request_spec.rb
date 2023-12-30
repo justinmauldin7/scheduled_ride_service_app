@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 describe 'Rides API' do
-  before :each do
+  before :each, :vcr do
     @driver = Driver.create(address: "12051 E Arizona Ave. Aurora, CO 80012")
 
     @ride_1 = Ride.create(driver: @driver, 
@@ -21,7 +21,7 @@ describe 'Rides API' do
                 end_address:"8580 E Lowry Blvd, Denver, CO 80230")
   end
 
-  it "can return a specific Driver's associated rides" do
+  it "can return a specific Driver's associated rides", :vcr do
     get "/api/v1/drivers/#{@driver.id}/rides"
 
     rides = JSON.parse(response.body, symbolize_names: true)
@@ -47,10 +47,13 @@ describe 'Rides API' do
 
       expect(ride).to have_key(:updated_at)
       expect(ride[:updated_at]).to be_a(String)
+
+      expect(ride).to have_key(:score)
+      expect(ride[:score]).to be_a(Float)
     end
   end
 
-  it "can return a paginated list of a specific Driver's associated rides" do
+  it "can return a paginated list of a specific Driver's associated rides", :vcr do
     per_page_number = 2
     page_number = 1
 
@@ -85,6 +88,9 @@ describe 'Rides API' do
 
       expect(ride).to have_key(:updated_at)
       expect(ride[:updated_at]).to be_a(String)
+
+      expect(ride).to have_key(:score)
+      expect(ride[:score]).to be_a(Float)
     end
   end
 end
