@@ -23,18 +23,12 @@ class TimeAndDistanceConversionService
   def divide_integer_by_a_value(integer_to_convert, value)
     # If we don't convert the integers into floats, any number that is retruned by the math 
     # that is less than 1 will be returned as 0 instead of a decimal.
-    converted_float = integer_to_convert.to_f / value.to_f
-
-    # Returning the value with 2 decimal places.
-    converted_float.round(2)
+    integer_to_convert.to_f / value.to_f
   end
 
   def multiply_integer_by_a_value(integer_to_convert, value) 
     # If we don't convert the integers into floats, any number that is retruned by the math 
     # that is less than 1 will be returned as 0 instead of a decimal. 
-    converted_float = integer_to_convert.to_f * value.to_f
-
-    # Returning the value with 2 decimal places. 
-    converted_float.round(2) 
+    integer_to_convert.to_f * value.to_f  
   end
 end
