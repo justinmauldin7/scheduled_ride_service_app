@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 describe 'Ride Score Calculator Service' do
-  before :each do
+  before :each, :vcr do
     @driver = Driver.create(address: "12051 E Arizona Ave. Aurora, CO 80012")
 
     @ride = Ride.create(driver: @driver, 
