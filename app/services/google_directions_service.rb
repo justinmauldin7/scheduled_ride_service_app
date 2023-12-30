@@ -2,16 +2,25 @@ class GoogleDirectionsService
   API_KEY = ENV['GOOGLE_MAPS_API_KEY'].freeze
 
   def self.get_raw_directions_data(driver_address, start_address, end_address)
+    # Here is a link to the Google Directions API Docs that shows what the response of this API call looks like: 
+    # https://developers.google.com/maps/documentation/directions/get-directions#DirectionsResponses
     get_json("/maps/api/directions/json?origin=#{driver_address}&waypoints=#{start_address}&destination=#{end_address}")
   end
 
   def self.get_serialized_directions_data(driver_address, start_address, end_address)
+    # This method returns only a raw version of the "duration" & "distance" data found in the "legs" secion from the raw data.
+    # The data will look like this:
+    # [{:distance=>{:text=>"0.3 mi", :value=>531}, :duration=>{:text=>"2 mins", :value=>113}}, 
+    # {:distance=>{:text=>"1.3 mi", :value=>2058}, :duration=>{:text=>"5 mins", :value=>319}}]
     raw_data = get_raw_directions_data(driver_address, start_address, end_address)
 
     get_distance_and_duration_data(raw_data)
   end
 
   def self.get_cleaned_ride_routing_data(driver_address, start_address, end_address)
+    # This method returns only a cleaned up version of the "duration" & "distance" data found in the "legs" secion from the raw data.
+    # The data will look like this:
+    # [{:distance=>531, :duration=>113}, {:distance=>2058, :duration=>319}]
     raw_distance_and_duration_data = get_serialized_directions_data(driver_address, start_address, end_address)
 
     get_cleaned_distance_and_duration_data(raw_distance_and_duration_data)
