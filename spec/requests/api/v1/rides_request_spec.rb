@@ -55,6 +55,26 @@ describe 'Rides API' do
     end
   end
 
+  it "can return rides ordered by its score", :vcr do
+    get "/api/v1/drivers/#{@driver.id}/rides"
+
+    rides = JSON.parse(response.body, symbolize_names: true)
+
+    expect(response).to be_successful
+
+    expect(rides.first[:id]).to eq(@ride_3.id)
+    expect(rides.first[:score]).to eq(@ride_3.score)
+    
+    expect(rides.first[:id]).not_to eq(@ride_2.id)
+    expect(rides.first[:score]).not_to eq(@ride_2.score)
+
+    expect(rides.last[:id]).to eq(@ride_1.id)
+    expect(rides.last[:score]).to eq(@ride_1.score)
+    
+    expect(rides.last[:id]).not_to eq(@ride_4.id)
+    expect(rides.last[:score]).not_to eq(@ride_4.score)
+  end
+
   it "can return a paginated list of a specific Driver's associated rides", :vcr do
     per_page_number = 2
     page_number = 1
