@@ -22,9 +22,6 @@ gem "faraday"
 gem 'will_paginate'
 gem 'api-pagination'
 
-# Used to customize the shape of the data in the response of our API endpoints.
-gem "jsonapi-serializer"
-
 # Build JSON APIs with ease [https://github.com/rails/jbuilder]
 # gem "jbuilder"
 
