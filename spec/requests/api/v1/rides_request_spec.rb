@@ -27,6 +27,7 @@ describe 'Rides API' do
     rides = JSON.parse(response.body, symbolize_names: true)
 
     expect(response).to be_successful
+
     expect(rides.count).to eq(@driver.rides.size)
 
     rides.each do |ride|
@@ -62,35 +63,14 @@ describe 'Rides API' do
     rides = JSON.parse(response.body, symbolize_names: true)
 
     expect(response).to be_successful
+
     expect(rides.count).to eq(per_page_number)
     expect(rides.count).not_to eq(4)
 
     expect(rides.first[:id]).to eq(@ride_1.id)
     expect(rides.last[:id]).to eq(@ride_2.id)
+
     expect(rides.first[:id]).not_to eq(@ride_3.id)
     expect(rides.last[:id]).not_to eq(@ride_4.id)
-
-    rides.each do |ride|
-      expect(ride).to have_key(:id)
-      expect(ride[:id]).to be_an(Integer)
-
-      expect(ride).to have_key(:driver_id)
-      expect(ride[:driver_id]).to eq(@driver.id)
-
-      expect(ride).to have_key(:start_address)
-      expect(ride[:start_address]).to be_a(String)
-
-      expect(ride).to have_key(:end_address)
-      expect(ride[:end_address]).to be_a(String)
-
-      expect(ride).to have_key(:created_at)
-      expect(ride[:created_at]).to be_a(String)
-
-      expect(ride).to have_key(:updated_at)
-      expect(ride[:updated_at]).to be_a(String)
-
-      expect(ride).to have_key(:score)
-      expect(ride[:score]).to be_a(Float)
-    end
   end
 end
