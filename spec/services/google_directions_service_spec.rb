@@ -30,15 +30,19 @@ describe 'Google Directions API Service' do
     ride_data.each do |ride|
       expect(ride).to have_key(:distance)
       expect(ride[:distance]).to be_an(Hash)
+
       expect(ride[:distance]).to have_key(:text)
       expect(ride[:distance][:text]).to be_an(String)
+
       expect(ride[:distance]).to have_key(:value)
       expect(ride[:distance][:value]).to be_an(Integer)
 
       expect(ride).to have_key(:duration)
       expect(ride[:duration]).to be_an(Hash)
+
       expect(ride[:duration]).to have_key(:text)
       expect(ride[:duration][:text]).to be_an(String)
+      
       expect(ride[:duration]).to have_key(:value)
       expect(ride[:duration][:value]).to be_an(Integer)
     end
@@ -48,13 +52,13 @@ describe 'Google Directions API Service' do
     ride_data = GoogleDirectionsService.get_cleaned_ride_routing_data(@driver.address, @ride.start_address, @ride.end_address)
 
     ride_data.each do |ride|
+      expect(ride.keys).to eq([:distance, :duration])
+      
       expect(ride).to have_key(:distance)
       expect(ride[:distance]).to be_an(Integer)
 
       expect(ride).to have_key(:duration)
       expect(ride[:duration]).to be_an(Integer)
-
-      expect(ride.keys).to eq([:distance, :duration])
     end
   end
 end
