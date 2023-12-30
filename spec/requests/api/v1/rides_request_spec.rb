@@ -4,17 +4,18 @@ describe 'Rides API' do
   before :each, :vcr do
     @driver = Driver.create(address: "12051 E Arizona Ave. Aurora, CO 80012")
 
+
     @ride_1 = Ride.create(driver: @driver, 
-            start_address:"12200 E Mississippi Ave, Aurora, CO 80012",
-            end_address:"1550 S Potomac St, Aurora, CO 80012")
+                start_address:"12200 E Mississippi Ave, Aurora, CO 80012", 
+                end_address:"8580 E Lowry Blvd, Denver, CO 80230")
 
     @ride_2 = Ride.create(driver: @driver, 
                 start_address:"12200 E Mississippi Ave, Aurora, CO 80012", 
                 end_address:"200 S Ironton St, Aurora, CO 80012")
 
     @ride_3 = Ride.create(driver: @driver, 
-                start_address:"12200 E Mississippi Ave, Aurora, CO 80012", 
-                end_address:"8580 E Lowry Blvd, Denver, CO 80230")
+            start_address:"12200 E Mississippi Ave, Aurora, CO 80012",
+            end_address:"1550 S Potomac St, Aurora, CO 80012")
 
     @ride_4 = Ride.create(driver: @driver, 
                 start_address:"12051 E Arizona Ave. Aurora, CO 80012", 
@@ -67,10 +68,10 @@ describe 'Rides API' do
     expect(rides.count).to eq(per_page_number)
     expect(rides.count).not_to eq(4)
 
-    expect(rides.first[:id]).to eq(@ride_1.id)
+    expect(rides.first[:id]).to eq(@ride_3.id)
+    expect(rides.first[:id]).not_to eq(@ride_2.id)
+    
     expect(rides.last[:id]).to eq(@ride_2.id)
-
-    expect(rides.first[:id]).not_to eq(@ride_3.id)
     expect(rides.last[:id]).not_to eq(@ride_4.id)
   end
 end
