@@ -2,6 +2,8 @@ class RideScoreCalculatorService
   BASE_RIDE_FEE = 12.freeze # this value is in dollars
   BASE_RIDE_DISTANCE = 5.freeze # this value is in miles
   BASE_RIDE_DURATION = 15.freeze # this value is in minutes
+  EXTRA_DURATION_RATE = 0.70.freeze # this value is in dollars
+  EXTRA_DISTANCE_RATE = 1.50.freeze # this value is in dollars
 
   def initialize(route_data)
     @conversion_service = TimeAndDistanceConversionService.new
@@ -54,7 +56,7 @@ class RideScoreCalculatorService
     if total_ride_minutes > BASE_RIDE_DURATION
       extra_minutes = total_ride_minutes - BASE_RIDE_DURATION
 
-      return 0.70 * extra_minutes
+      return EXTRA_DURATION_RATE * extra_minutes
     else
       # We need to return 1 hear instead of 0, because you can't divide something by 0,
       # which is what we are doing with this return value in the "get_ride_earnings" method.
@@ -68,7 +70,7 @@ class RideScoreCalculatorService
     if @total_ride_distance > BASE_RIDE_DISTANCE
       extra_miles = @total_ride_distance - BASE_RIDE_DISTANCE
 
-      return 1.50 * extra_miles
+      return EXTRA_DISTANCE_RATE * extra_miles
     else
       # This returned value can be 0 because we are just doing addition with the value in the "get_ride_earnings" method.
       return 0
