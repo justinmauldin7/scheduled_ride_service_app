@@ -30,7 +30,7 @@ describe Ride do
     end
 
     it 'can prevent trying to set the ride score on a record if it already has one', :vcr do
-      expect { r@ride.set_ride_score }.to raise_error(StandardError, "ERROR: Ride score is already set.")
+      expect { @ride.set_ride_score }.to raise_error(StandardError, "ERROR: Ride score is already set.")
     end
   end  
 end
