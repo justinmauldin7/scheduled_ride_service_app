@@ -1,5 +1,6 @@
 class GoogleDirectionsService
   API_KEY = ENV['GOOGLE_MAPS_API_KEY'].freeze
+  GOOGLE_API_URL = 'https://maps.googleapis.com'.freeze
 
   def self.get_raw_directions_data(driver_address, start_address, end_address)
     # Here is a link to the Google Directions API Docs that shows what the response of this API call looks like: 
@@ -29,7 +30,7 @@ class GoogleDirectionsService
   private
 
   def self.conn
-    Faraday.new(:url => 'https://maps.googleapis.com') do |faraday|
+    Faraday.new(:url => GOOGLE_API_URL) do |faraday|
       faraday.params['key'] = API_KEY
       faraday.adapter  Faraday.default_adapter
     end
