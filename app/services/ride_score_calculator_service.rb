@@ -1,4 +1,8 @@
 class RideScoreCalculatorService
+  BASE_RIDE_FEE = 12.freeze # this value is in dollars
+  BASE_RIDE_DISTANCE = 5.freeze # this value is in miles
+  BASE_RIDE_DURATION = 15.freeze # this value is in minutes
+
   def initialize(route_data)
     @conversion_service = TimeAndDistanceConversionService.new
 
@@ -10,10 +14,7 @@ class RideScoreCalculatorService
 
     @total_ride_duration = (@commute_duration + @ride_duration)
     @total_ride_distance = (@commute_distance + @ride_distance)
-
-    @base_ride_fee = 12 # this value is in dollars
-    @base_ride_distance = 5 # this value is in miles
-    @base_ride_duration = 15 # this value is in minutes
+ 
     @extra_duration_charge = get_extra_duration_charge # this value is in dollars
     @extra_distance_charge = get_extra_distance_charge # this value is in dollars
   end
@@ -31,7 +32,7 @@ class RideScoreCalculatorService
     # It takes into account both the amount of time the ride is expected to take and the distance. 
     # It is calculated as: 
     # $12 + $1.50 per mile beyond 5 miles + (ride duration) * $0.70 per minute beyond 15 minutes
-    (@base_ride_fee + @extra_distance_charge + @ride_duration) * @extra_duration_charge
+    (BASE_RIDE_FEE + @extra_distance_charge + @ride_duration) * @extra_duration_charge
   end
 
   private 
@@ -50,8 +51,8 @@ class RideScoreCalculatorService
     # @total_ride_duration is in hours, so we need to convert it into minutes.
     total_ride_minutes =  @conversion_service.convert_hours_to_minutes(@total_ride_duration)
 
-    if total_ride_minutes > @base_ride_duration
-      extra_minutes = total_ride_minutes - @base_ride_duration
+    if total_ride_minutes > BASE_RIDE_DURATION
+      extra_minutes = total_ride_minutes - BASE_RIDE_DURATION
 
       return 0.70 * extra_minutes
     else
@@ -64,8 +65,8 @@ class RideScoreCalculatorService
   def get_extra_distance_charge
     # $1.50 per mile beyond 5 miles
 
-    if @total_ride_distance > @base_ride_distance
-      extra_miles = @total_ride_distance - @base_ride_distance
+    if @total_ride_distance > BASE_RIDE_DISTANCE
+      extra_miles = @total_ride_distance - BASE_RIDE_DISTANCE
 
       return 1.50 * extra_miles
     else
@@ -77,7 +78,7 @@ class RideScoreCalculatorService
   def format_decimal_places(value)
     # This will convert our float into a string & return only 2 decimal places. 
     # EX: 0.0313888 turns into "0.03"
-    # It also makes sure it ends in a 0 if needed for consistant formatting.
+    # It also makes sure it ends in a 0 if needed for consistent formatting.
     # EX: 0.401 turns into "0.40"
     '%.2f' % value
   end
