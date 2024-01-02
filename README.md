@@ -2,6 +2,75 @@
 # Justin Mauldin's Rails Assessment:
 My Rails API implementation successfully accomplishes the requirements set forth in the [HopSkipDrive Rails Assessment](https://docs.google.com/document/d/1FhyO5fxFIzCF6RIDDnfh4zwls7x974dI8pHB4AUg2Kc/edit?usp=sharing) instructions provided to me.
 
+
+## Developer Notes
+### My Approach & Thought process:
+I used Test Driven Development in order to create this whole implementation.  
+
+Additionally, I read through each of the requirements (in the `Specification:` section) from the prompt, made sure I understood them, and worked my way down the list of bullet-points one by one, as I thought they were already in logical order for implementing them.
+
+Finally, where I thought requirements where vague or nonexistent, I just made executive decisions about the implementation and context instead of getting stuck in analysis paralysis, preparing to instead explain the reasoning for the decisions & patterns I made in any follow up discussions with the hiring team.
+
+
+### My Implementation Choices:
+Below are a few key things that I want to call out & explain my implementation decisions on.
+
+  * __Pagination:__ 
+
+    In my research on how best to add pagination to a Rails API endpoint, I ran across this [post](https://thecodeboss.dev/2017/02/building-a-json-api-with-rails-part-6-the-json-api-spec-pagination-and-versioning/) that had an implementation that I liked.  
+  
+    Because of time constraints, I liked this implementation's ease and quickness for adding pagination. So this why I decided to use the `will-paginate` & `api-pagination` gems and adding a dependency, rather than hand-rolling the pagination implementation.
+  
+    When I was thinking about the best ways to limit the number of API calls that the `GoogleDirectionsService`made *(and because I didn't know how a ride record was created, and that was not in the prompt or part of the prompt)*, I thought a good way to limit the calls was to make them a `after_create` method on the `Ride` model.  I then added logic to not allow the method to be called if the existing record already had a `score` value already on it.
+
+    The creation of the ride record is definitely something I plan on asking about in any follow-up conversations to ensure that this implementation would fit in the bigger picture of the app outside of the limited specifications I was given to implement.
+
+ * __Waypoints in the Google Directions API:__
+      
+    I had not previously worked with the Google Directions API, so as I was going through the documentation & learning how it worked, I quickly found the ability to call `origin` & `destination` to make a call & get the direction & direction data that I needed.
+
+    However, as I dug deeper into the documentation & was also thinking about how to limit the number of "expensive" API calls, I found the [Waypoints](https://developers.google.com/maps/documentation/directions/get-directions#waypoints) option for returning the data for a ride that has a home address, starting address, & ending address.  
+    
+    This then allowed me to just make 1 API call instead of 2 in order to get the distance & duration data between the 3 addresses for the 2 different "legs" of the journey a driver has to choose from that were part of the requirements.
+
+
+### Things to add/refactor:
+If given more time, below are the things I would add or change to my current implementation.
+
+  * __Serialization:__ 
+  
+    I know that it can be an important thing for API endpoints to need to customize the shape of the data that is returned, and though it was no explicitly asked for in the requirements, I wanted to implement a Serializer on my endpoint I created to show that I know about them.
+
+    However, when I was experimenting with adding a Serializer via the [jsonapi-serializer](https://github.com/jsonapi-serializer/jsonapi-serializer) gem, it was causing problems with the pagination implementation of the endpoint, and after spending some time reading through the documentation & searching for some answers, I was not getting it to work.
+
+    I did try using the `jsonapi-serializer` with a hand-rolled version of pagination for my endpoint, but due to time constraints, I decided that it would cause too many changes for how deep I was into the implementation of the prompt, and since serialization was not explicitly called for in the requirements, I made the decision it would be something I could add & look into at a later time.
+    
+    Below is a screenshot of the Serializer & hand-rolled pagination implementation I was experimenting with:
+    ![Serializer Refactor](public/readme_files/scheduled-ride-service-app-serializer-refactor.png)
+
+  * __Default `per_page` Values:__ 
+  
+    Though it was not explicitly called for in the prompt requirements, it was brought to my attention that the default behavior for an API endpoint returning all records when not passing in the `per_page` & `page` params might not be the most ideal thing to do, and that having a default `per_page` value that automatically paginates the Ride records by a set number might be a good thing to have on the endpoint by default.
+
+    Again, due to time constraints, I decided that it would cause too many changes for how deep I was into the implementation of the prompt, and since a default value was not explicitly called for in the requirements, I made the decision it would be something I could ask clarifying questions about in any follow-up discussions with the hiring team or be something that I could add at a later time.
+
+  * __Recalculate Ride Score on Update:__ 
+  
+    One thing that I thought about was that if a Ride's score was calculated at a records creation, something that was likely possible to happen in the future was that the `start_address` or `end_address` value on the record could change & thus change the score of a ride.
+
+    Again, since this was not explicitly called for in the requirements, I made the decision it would be something I could ask clarifying questions about in any follow-up discussions with the hiring team or be something that I could add at a later time.
+      
+  * __Background Workers:__ 
+  
+    In every past job I have worked at, the need for asynchronous tasks to be performed in the background that do not keep a user waiting has been something that was really important to the features that we implemented.
+
+    I know that with the implementation of my Ride's score being calculated at record creation, that could possibly take some time & cause an undesirable wait for the end-user.
+
+    The call to the Google Directions API & setting of the Ride's score is something that is perfect for a background worker & would be something that would be needed. 
+
+    If given more time & if the prompt explicitly called for it, I would implement [Redis](https://redis.io/) & [Sidekiq](https://github.com/sidekiq/sidekiq) to add background workers to this app & make that API call an asynchronous task.
+
+
 ## Getting Started
 These instructions will get you a copy of the project up and running on your local machine for development and testing purposes.
 
@@ -33,8 +102,10 @@ These instructions will get you a copy of the project up and running on your loc
     localhost:3000
     ```
 
+
 ## Database Schema
 ![DB Schema](public/readme_files/scheduled-ride-service-app-db-schema.png)
+
 
 ## API Endpoints
 Below is a comprehensive list of all the API endpoints that are created & exposed by this Rails API app.
@@ -171,6 +242,7 @@ Model tests were created using RSpec & Shoulda Matchers, with HTTP requests bein
   ```
   $ rspec ./spec/requests/api/v1/rides_request_spec.rb:25
   ```
+
 
 ## Built With
 * [Ruby - Version 3.1.0](https://ruby-doc.org/core-3.1.0/) - Base code language
