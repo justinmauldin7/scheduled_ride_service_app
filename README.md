@@ -34,7 +34,7 @@ These instructions will get you a copy of the project up and running on your loc
     ```
 
 ## Database Schema
-![Image description](public/readme_files/scheduled-ride-service-app-db-schema.png)
+![DB Schema](public/readme_files/scheduled-ride-service-app-db-schema.png)
 
 ## API Endpoints
 Below is a comprehensive list of all the API endpoints that are created & exposed by this Rails API app.
@@ -112,6 +112,36 @@ Below is a comprehensive list of all the API endpoints that are created & expose
     }
   ]
   ```
+
+  * ### Postman Documentation:
+    I created a Personal workspace in Postman for this API endpoint.  The workspace utilizes, collections, tests, environments, global variables, & monitors.
+
+    If given an email address, I can share the workspace with anyone who would like to see it.
+    
+    However, it is a private/Personal workspace due to it having the API Key for my Google Cloud account for making the API call to the Google Directions API.
+
+    Below are some screenshots displaying its implementation:
+      
+      * __Rides API Endpoint:__
+
+        ![Rides API Endpoint](public/readme_files/scheduled-ride-service-app-postman-rides-api-endpoint.png)
+
+      
+      * __Rides API Endpoint Tests:__
+
+        ![Rides API Endpoint Tests](public/readme_files/scheduled-ride-service-app-postman-rides-api-test.png)
+
+      
+      * __Google Directions API Endpoint:__
+
+        ![Google Directions API Endpoint](public/readme_files/scheduled-ride-service-app-postman-google-directions-api-endpoint.png)
+
+      
+      * __Setup Monitor:__
+
+        ![Postman Monitor](public/readme_files/scheduled-ride-service-app-postman-monitor.png)
+        *(The monitor runs are failing because I don't have the paid version of Postman that allows you to run successful monitor tests on Localhost.)*
+
  
 ## Testing
 This app was developed using TDD via Rspec tests.  The app is fully tested with all tests passing.
@@ -135,6 +165,7 @@ Model tests were created using RSpec & Shoulda Matchers, with HTTP requests bein
 
 * ### Running a Single Test From a Single Test File:
   Type this command from the root of the directory.
+
   *(Just change the line number in the command to run a different test in that file.)*
 
   ```
