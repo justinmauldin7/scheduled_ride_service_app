@@ -3,19 +3,14 @@
 My Rails API implementation successfully accomplishes the requirements set forth in the [HopSkipDrive Rails Assessment](https://docs.google.com/document/d/1FhyO5fxFIzCF6RIDDnfh4zwls7x974dI8pHB4AUg2Kc/edit?usp=sharing) instructions provided to me.
 
 ## Getting Started
-
 These instructions will get you a copy of the project up and running on your local machine for development and testing purposes.
 
 * ### Prerequisites:
-
   * Install Ruby (Version 3.1.0)
   * Install Rails (Version 7.0.8)
   * Install Bundler (Version 2.4.16)
 
-
-
 * ### Installing:
-
   To run this application locally, clone the [scheduled_ride_service_app](https://github.com/justinmauldin7/scheduled_ride_service_app) repo and follow the steps below:
 
   * #### Install gems:
@@ -23,23 +18,21 @@ These instructions will get you a copy of the project up and running on your loc
     $ bundle install
     ```
 
-
   * #### Create, migrate, & seed the database:
     ```
     $ rake db:setup
     ```
-
 
   * #### Start your Rails server:
     ```
     $ rails s
     ```
 
-
   * #### Open browser and navigate to:
     ```
     localhost:3000
     ```
+
 ## Database Schema
 ![Image description](public/readme_files/scheduled-ride-service-app-db-schema.png)
 
@@ -94,6 +87,7 @@ Below is a comprehensive list of all the API endpoints that are created & expose
   ```
 
   The second is to pass in `per_page` & `per_page` params & return a paginated list of ride records:
+  
   ``` 
   GET /api/v1/drivers/1/rides?per_page=2&page=2
 
@@ -125,7 +119,6 @@ This app was developed using TDD via Rspec tests.  The app is fully tested with 
 Model tests were created using RSpec & Shoulda Matchers, with HTTP requests being made in tests utilizing VCR & WebMock to record requests & limit API calls.
 
 * ### Running the Full Test Suite:
-
   From the root of the directory, type the below command to run the full test suite:
 
   ```
@@ -133,17 +126,15 @@ Model tests were created using RSpec & Shoulda Matchers, with HTTP requests bein
   ```
 
 * ### Running a Single Test File:
-
   Type this command from the root of the directory.
 
   ```
   $ rspec ./spec/requests/api/v1/rides_request_spec.rb
 
   ```
+
 * ### Running a Single Test From a Single Test File:
-
   Type this command from the root of the directory.
-
   *(Just change the line number in the command to run a different test in that file.)*
 
   ```
@@ -151,7 +142,6 @@ Model tests were created using RSpec & Shoulda Matchers, with HTTP requests bein
   ```
 
 ## Built With
-
 * [Ruby - Version 3.1.0](https://ruby-doc.org/core-3.1.0/) - Base code language
 * [Rails - Version 7.0.8](https://guides.rubyonrails.org/v7.0/) - Web framework used
 * [Figaro](https://github.com/laserlemon/figaro) - Securely configures environment variables
