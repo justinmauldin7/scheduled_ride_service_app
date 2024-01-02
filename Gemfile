@@ -12,6 +12,16 @@ gem "pg", "~> 1.1"
 # Use the Puma web server [https://github.com/puma/puma]
 gem "puma", "~> 5.0"
 
+# Used to keep our app api keys & secrets out of Git.
+gem "figaro"
+
+# Used to make HTTP requests for interacting with external API's.
+gem "faraday"
+
+# These two gems are used together to help us use pagination on our Rails API endpoints.
+gem 'will_paginate'
+gem 'api-pagination'
+
 # Build JSON APIs with ease [https://github.com/rails/jbuilder]
 # gem "jbuilder"
 
@@ -39,14 +49,26 @@ gem "bootsnap", require: false
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
   gem "debug", platforms: %i[ mri mingw x64_mingw ]
+
+  # Preferred debugging tool.
+  gem "pry"
+
+  # Used as the testing suite.
+  gem "rspec-rails"
+
+  # Used to help test our models.
+  gem "shoulda-matchers"
+
+  # Used to record and minimize external API rquests in our RSpec tests.
+  gem "vcr"
+
+  # Used in conjunction with the 'vcr' gem to record real API requests in our RSP tests.
+  gem "webmock"
 end
 
 group :development do
   # Speed up commands on slow machines / big apps [https://github.com/rails/spring]
   # gem "spring"
 
-  gem 'pry'
-  gem 'rspec-rails'
-  gem 'shoulda-matchers'
 end
 
