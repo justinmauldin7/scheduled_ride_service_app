@@ -1,9 +1,9 @@
 class RideScoreCalculatorService
-  BASE_RIDE_FEE = 12.freeze # this value is in dollars
-  BASE_RIDE_DISTANCE = 5.freeze # this value is in miles
-  BASE_RIDE_DURATION = 15.freeze # this value is in minutes
-  EXTRA_DURATION_RATE = 0.70.freeze # this value is in dollars
-  EXTRA_DISTANCE_RATE = 1.50.freeze # this value is in dollars
+  BASE_RIDE_FEE = 12 # this value is in dollars
+  BASE_RIDE_DISTANCE = 5 # this value is in miles
+  BASE_RIDE_DURATION = 15 # this value is in minutes
+  EXTRA_DURATION_RATE = 0.70 # this value is in dollars
+  EXTRA_DISTANCE_RATE = 1.50 # this value is in dollars
 
   def initialize(route_data)
     @conversion_service = TimeAndDistanceConversionService.new
