@@ -56,15 +56,10 @@ class GoogleDirectionsService
 
   def self.get_cleaned_distance_and_duration_data(raw_data)
     raw_data.map do |route_data|
-      cleaned_route_data = route_data.map do |key, value|
-        # Here is some sample data we are iterating through so its clear why we are setting the "value" of "value".
-        # EX: {:distance => {:text => "0.3 mi", :value => 531}
-        route_data[key] = value[value.keys.last]
-      end
-
-      cleaned_route_data
+      {
+        distance: route_data[:distance][:value],
+        duration: route_data[:duration][:value]
+      }
     end
-
-    raw_data
   end
 end
