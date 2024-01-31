@@ -77,6 +77,7 @@ These instructions will get you a copy of the project up and running on your loc
 * ### Prerequisites:
   * Install Ruby (Version 3.1.0)
   * Install Rails (Version 7.0.8)
+  * Install PostgreSQL (Version 14.9)
   * Install Bundler (Version 2.4.16)
 
 * ### Installing:
@@ -247,6 +248,7 @@ Model tests were created using RSpec & Shoulda Matchers, with HTTP requests bein
 ## Built With
 * [Ruby - Version 3.1.0](https://ruby-doc.org/core-3.1.0/) - Base code language
 * [Rails - Version 7.0.8](https://guides.rubyonrails.org/v7.0/) - Web framework used
+* [PostgreSQL](https://www.postgresql.org/) - Database used
 * [Figaro](https://github.com/laserlemon/figaro) - Securely configures environment variables
 * [Faraday](https://github.com/lostisland/faraday) - HTTP Client for making API calls
 * [Will Paginate](https://github.com/mislav/will_paginate) - Pagination tool
