@@ -80,6 +80,15 @@ These instructions will get you a copy of the project up and running on your loc
   * Install PostgreSQL (Version 14.9)
   * Install Bundler (Version 2.4.16)
 
+  * #### Google Directions API Key:
+    *For security purposes, my API key for the Google Directions API is stored in an 'application.yml' file that is not checked into source control.*  
+    
+    *If you are wanting to setup and use this repo to make successful API calls, you will need to reach out to me so that I can give you the key first.* 
+
+    *or*
+
+    *You can create your own Google Cloud API Key for the Google Directions API in your own account by following these [instructions](https://developers.google.com/maps/documentation/directions/get-api-key).*
+
 * ### Installing:
   To run this application locally, clone the [scheduled_ride_service_app](https://github.com/justinmauldin7/scheduled_ride_service_app) repo and follow the steps below:
 
