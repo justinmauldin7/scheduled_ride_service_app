@@ -44,16 +44,11 @@ class GoogleDirectionsService
   
     def get_distance_and_duration_data(raw_data)
       route_legs = raw_data[:routes].first[:legs]
-      cleaned_route_array = []
   
-      route_legs.each do |leg|
-        distance_and_duration_hash = leg.slice(:distance, :duration)
-  
-        cleaned_route_array << distance_and_duration_hash
+      route_legs.map do |leg|
+        leg.slice(:distance, :duration)
       end
-  
-      cleaned_route_array
-    end 
+    end
   
     def get_cleaned_distance_and_duration_data(raw_data)
       raw_data.map do |route_data|
