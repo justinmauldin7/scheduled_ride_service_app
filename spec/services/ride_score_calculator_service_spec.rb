@@ -1,16 +1,12 @@
 require 'rails_helper'
 
-describe 'Ride Score Calculator Service' do
-  let(:driver) { Driver.create(address: "12051 E Arizona Ave. Aurora, CO 80012") }
-
-  let(:ride) do
-    Ride.create(driver: driver, 
-                start_address:"12200 E Mississippi Ave, Aurora, CO 80012",
-                end_address:"1550 S Potomac St, Aurora, CO 80012")
-  end
+describe RideScoreCalculatorService do
+  let(:driver_address) { "12051 E Arizona Ave. Aurora, CO 80012" }
+  let(:ride_start_address) { "12200 E Mississippi Ave, Aurora, CO 80012" }
+  let(:ride_end_address) { "1550 S Potomac St, Aurora, CO 80012" }
 
   it "can get a Ride's score", :vcr do
-    cleaned_route_data = GoogleDirectionsService.get_cleaned_ride_routing_data(driver.address, ride.start_address, ride.end_address)
+    cleaned_route_data = GoogleDirectionsService.get_cleaned_ride_routing_data(driver_address, ride_start_address, ride_end_address)
 
     ride_score_service = RideScoreCalculatorService.new(cleaned_route_data)
     ride_score = ride_score_service.get_ride_score
