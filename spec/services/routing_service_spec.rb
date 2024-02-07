@@ -1,12 +1,12 @@
 require 'rails_helper'
 
-describe GoogleDirectionsService do
+describe RoutingService do
   let(:driver_address) { "12051 E Arizona Ave. Aurora, CO 80012" }
   let(:ride_start_address) { "12200 E Mississippi Ave, Aurora, CO 80012" }
   let(:ride_end_address) { "1550 S Potomac St, Aurora, CO 80012" }
   
   it 'can get raw directions data', :vcr do
-    api_response = GoogleDirectionsService.get_raw_directions_data(driver_address, ride_start_address, ride_end_address)
+    api_response = RoutingService.get_raw_directions_data(driver_address, ride_start_address, ride_end_address)
 
     api_response_driver_address = api_response[:routes].first[:legs].first[:start_address]
     api_response_start_address = api_response[:routes].first[:legs].last[:start_address]
@@ -21,7 +21,7 @@ describe GoogleDirectionsService do
   end
 
   it 'can get cleaned directions data', :vcr do
-    ride_data = GoogleDirectionsService.get_serialized_directions_data(driver_address, ride_start_address, ride_end_address)
+    ride_data = RoutingService.get_serialized_directions_data(driver_address, ride_start_address, ride_end_address)
 
     ride_data.each do |ride|
       expect(ride).to have_key(:distance)
@@ -45,7 +45,7 @@ describe GoogleDirectionsService do
   end
 
   it 'can get cleaned distance & direction data (for ride routing)', :vcr do
-    ride_data = GoogleDirectionsService.get_cleaned_ride_routing_data(driver_address, ride_start_address, ride_end_address)
+    ride_data = RoutingService.get_cleaned_ride_routing_data(driver_address, ride_start_address, ride_end_address)
 
     ride_data.each do |ride|
       expect(ride.keys).to eq([:distance, :duration])

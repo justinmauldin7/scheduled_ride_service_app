@@ -6,7 +6,7 @@ describe RideScoreCalculatorService do
   let(:ride_end_address) { "1550 S Potomac St, Aurora, CO 80012" }
 
   it "can get a Ride's score", :vcr do
-    cleaned_route_data = GoogleDirectionsService.get_cleaned_ride_routing_data(driver_address, ride_start_address, ride_end_address)
+    cleaned_route_data = RoutingService.get_cleaned_ride_routing_data(driver_address, ride_start_address, ride_end_address)
 
     ride_score_service = RideScoreCalculatorService.new(cleaned_route_data)
     ride_score = ride_score_service.get_ride_score
