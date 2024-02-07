@@ -20,7 +20,7 @@ describe Ride do
     end
 
     it 'can set the score field on a ride record', :vcr do
-      cleaned_route_data = GoogleDirectionsService.get_cleaned_ride_routing_data(driver.address, ride.start_address, ride.end_address)
+      cleaned_route_data = RoutingService.get_cleaned_ride_routing_data(driver.address, ride.start_address, ride.end_address)
 
       ride_score_service = RideScoreCalculatorService.new(cleaned_route_data)
       expected_ride_score = ride_score_service.get_ride_score.to_f

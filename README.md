@@ -21,7 +21,7 @@ Below are a few key things that I want to call out & explain my implementation d
   
     Because of time constraints, I liked this implementation's ease and quickness for adding pagination. So this why I decided to use the `will-paginate` & `api-pagination` gems and adding a dependency, rather than hand-rolling the pagination implementation.
   
-    When I was thinking about the best ways to limit the number of API calls that the `GoogleDirectionsService`made *(and because I didn't know how a ride record was created, and that was not in the prompt or part of the prompt)*, I thought a good way to limit the calls was to make them a `after_create` method on the `Ride` model.  I then added logic to not allow the method to be called if the existing record already had a `score` value already on it.
+    When I was thinking about the best ways to limit the number of API calls that the `RoutingService`made *(and because I didn't know how a ride record was created, and that was not in the prompt or part of the prompt)*, I thought a good way to limit the calls was to make them a `after_create` method on the `Ride` model.  I then added logic to not allow the method to be called if the existing record already had a `score` value already on it.
 
     The creation of the ride record is definitely something I plan on asking about in any follow-up conversations to ensure that this implementation would fit in the bigger picture of the app outside of the limited specifications I was given to implement.
 
