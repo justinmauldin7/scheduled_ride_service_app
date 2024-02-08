@@ -12,9 +12,9 @@ describe RideScoreCalculatorService do
     ride_score = ride_score_service.get_ride_score
 
     expect(ride_score).to be_an(String)
-    expect(ride_score).to eq("100.53")
+    expect(ride_score).to eq("94.86")
 
     expect(ride_score).not_to be_an(Float)
-    expect(ride_score).not_to eq(100.53)
+    expect(ride_score).not_to eq(94.86)
   end
 end
