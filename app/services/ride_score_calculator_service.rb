@@ -6,8 +6,6 @@ class RideScoreCalculatorService
   EXTRA_DISTANCE_RATE = 1.50 # this value is in dollars
 
   def initialize(route_data)
-    @conversion_service = TimeAndDistanceConversionService.new
-
     @commute_duration = convert_duration_to_hours(route_data.first[:duration])
     @ride_duration = convert_duration_to_hours(route_data.last[:duration])
 
@@ -29,6 +27,16 @@ class RideScoreCalculatorService
     format_decimal_places(raw_ride_score)
   end
 
+  private 
+
+  def convert_duration_to_hours(duration)
+    TimeAndDistanceConversionService.convert_seconds_to_hours(duration)
+  end
+
+  def convert_distance_to_miles(distance)
+    TimeAndDistanceConversionService.convert_meters_to_miles(distance)
+  end
+  
   def get_ride_earnings
     # The ride earnings is how much the driver earns by driving the ride. 
     # It takes into account both the amount of time the ride is expected to take and the distance. 
@@ -37,21 +45,11 @@ class RideScoreCalculatorService
     (BASE_RIDE_FEE + @extra_distance_charge + @ride_duration) * @extra_duration_charge
   end
 
-  private 
-
-  def convert_duration_to_hours(duration)
-    @conversion_service.convert_seconds_to_hours(duration)
-  end
-
-  def convert_distance_to_miles(distance)
-    @conversion_service.convert_meters_to_miles(distance)
-  end
-
   def get_extra_duration_charge
     # $0.70 per minute beyond 15 minutes
 
     # @total_ride_duration is in hours, so we need to convert it into minutes.
-    total_ride_minutes =  @conversion_service.convert_hours_to_minutes(@total_ride_duration)
+    total_ride_minutes =  TimeAndDistanceConversionService.convert_hours_to_minutes(@total_ride_duration)
 
     if total_ride_minutes > BASE_RIDE_DURATION
       extra_minutes = total_ride_minutes - BASE_RIDE_DURATION

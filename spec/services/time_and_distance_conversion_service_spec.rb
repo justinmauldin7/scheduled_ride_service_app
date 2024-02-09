@@ -1,18 +1,16 @@
 require 'rails_helper'
 
 describe 'Time And Distance Conversion Service' do
-    let(:duration_to_convert) { 113 }
-    let(:distance_to_convert) { 531 }
-    let(:hours_to_convert) { 0.12 }
-
-    let(:conversion_service) { TimeAndDistanceConversionService.new }
+  let(:duration_to_convert) { 113 }
+  let(:distance_to_convert) { 531 }
+  let(:hours_to_convert) { 0.12 }
 
   it 'can convert seconds into hours' do
     seconds_in_a_hour = 3600
 
     expected_value = duration_to_convert.to_f / seconds_in_a_hour.to_f
 
-    converted_value = conversion_service.convert_seconds_to_hours(duration_to_convert)
+    converted_value = TimeAndDistanceConversionService.convert_seconds_to_hours(duration_to_convert)
 
     expect(converted_value).to be_an(Float)
     expect(converted_value).to eq(expected_value)
@@ -26,7 +24,7 @@ describe 'Time And Distance Conversion Service' do
 
     expected_value = distance_to_convert.to_f / meters_in_a_mile.to_f
 
-    converted_value = conversion_service.convert_meters_to_miles(distance_to_convert)
+    converted_value = TimeAndDistanceConversionService.convert_meters_to_miles(distance_to_convert)
  
     expect(converted_value).to be_an(Float)
     expect(converted_value).to eq(expected_value)
@@ -40,7 +38,7 @@ describe 'Time And Distance Conversion Service' do
 
     expected_value = hours_to_convert.to_f * minutes_in_a_hour.to_f
 
-    converted_value = conversion_service.convert_hours_to_minutes(hours_to_convert)
+    converted_value = TimeAndDistanceConversionService.convert_hours_to_minutes(hours_to_convert)
 
     expect(converted_value).to be_an(Float)
     expect(converted_value).to eq(expected_value)
