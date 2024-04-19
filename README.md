@@ -12,6 +12,8 @@ My Rails API implementation successfully accomplishes the requirements set forth
   * [Built With](#built-with)
 
 ## Prompt
+   Unlike many other rideshares, we are a scheduled ride service and not an on-demand ride service. In our app for drivers, we show them a list of upcoming rides and they can pick the ones they want. Our goal is to show them the best rides for each driver first, so to that end we have an internal scoring system. In this exercise you will be implementing a slimmed down version of it.
+   
    The primary goal of this exercise is for you to demonstrate how you think about testing, readability, and structuring a Rails application. We are also evaluating your ability to understand and implement requirements.
 
   * ### Specification:
